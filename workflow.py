@@ -7,11 +7,13 @@ from agents.filter_agent import DietaryFilterAgent
 from agents.substitution_agent import SubstitutionAgent
 from agents.step_adjustment_agent import StepAdjustmentAgent
 
+
 def check_for_flags(state: WorkflowState) -> str:
     """Checks if any dietary issues were flagged."""
     if state.dietary_flags and len(state.dietary_flags) > 0:
         return "substitute"
     return "adjust_steps"
+
 
 def compile_workflow(llm_client: Any):
     """Initializes agents and compiles the LangGraph workflow."""

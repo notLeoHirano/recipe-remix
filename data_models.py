@@ -15,12 +15,12 @@ class Substitution(BaseModel):
     prep: Optional[str] = None
 
 class OriginalRecipe(BaseModel):
-    """The clean, structured recipe core."""
+    """Structured recipe parsed from url"""
     title: str
     ingredients: List[str]
     steps: List[str]
 
-# --- Workflow State Model (The Single Source of Truth) ---
+# Workflow State Model
 class WorkflowState(BaseModel):
     """The central state object passed between all agents."""
     url: str

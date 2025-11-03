@@ -51,6 +51,7 @@ Final Recipe + Substitutions + Reasoning Log
 Each agent logs its decisions in the reasoning trace, which provides full transparency for every change made to the recipe.
 
 ## Testing
+
 Start a virtual environment then run pytest with optional `-s` flag if you want to see printed results
 
 ```bash

@@ -22,6 +22,7 @@ class LLMClient:
 
 llm_client_instance = LLMClient(api_key)
 
+# run
 def run_remix_workflow(state: WorkflowState):
     """Compile and execute the recipe workflow (without remixing)."""
     app = compile_workflow(llm_client_instance)
@@ -72,6 +73,9 @@ def run_remix_workflow(state: WorkflowState):
     print("\n## Reasoning Trace Log")
     print(json.dumps(final_state.reasoning_trace, indent=2))
 
+
+
+# spinner loading animation
 def spinner_task(stop_event):
     spinner = itertools.cycle(["|", "/", "--", "\\"])
     while not stop_event.is_set():
@@ -80,6 +84,8 @@ def spinner_task(stop_event):
         time.sleep(0.1)
         sys.stdout.write("\b")  # backspace to overwrite
 
+
+# main
 if __name__ == "__main__":
     print("=== Recipe Remix ===")
     recipe_url = input("Enter the recipe URL: ").strip()
