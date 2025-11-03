@@ -50,12 +50,30 @@ Final Recipe + Substitutions + Reasoning Log
 
 Each agent logs its decisions in the reasoning trace, which provides full transparency for every change made to the recipe.
 
----
+## Testing
+Start a virtual environment then run pytest with optional `-s` flag if you want to see printed results
+
+```bash
+venv\Scripts\activate
+
+python -m pytest -s tests/
+```
 
 ## Usage
 
-0. **Ensure you have python installed and your cli works.**
-1. **Activate your virtual environment**
+0. **Ensure you have python installed and your cli works. Clone the repository.**
+1. **Set up API key in .env**
+
+    ```bash
+    #.env
+
+    GEMINI_API_KEY="useyoursecretapikeyhere"
+    ```
+  
+    I used Gemini because it has the most forgiving free tier as of November 2025. Feel free to adapt it to any other API key.
+
+2. **Activate your virtual environment**
+  
     ```bash
     # Windows
     venv\Scripts\activate
@@ -64,8 +82,8 @@ Each agent logs its decisions in the reasoning trace, which provides full transp
     source venv/bin/activate
     ```
 
-2. **Run Python workflow**
-   
+3. **Run Python workflow**
+  
     ```bash
     python main.py  
     ```
@@ -79,12 +97,12 @@ Each agent logs its decisions in the reasoning trace, which provides full transp
     ```
 
     Note: you can also input vague terms, e.g if you want to avoid nonvegan items
+  
     ```bash
     === Recipe Remix ===
     Enter the recipe URL: https://www.allrecipes.com/recipe/21014/good-old-fashioned-pancakes/
     Enter ingredients to avoid (comma-separated): nonvegan
     ```
-
 
 ## Example output
 
