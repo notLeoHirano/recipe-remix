@@ -63,8 +63,12 @@ python -m pytest -s tests/
 
 ## Usage
 
-0. **Ensure you have python installed and your cli works. Clone the repository.**
-1. **Set up API key in .env**
+0. **If you haven't yet, make sure you have python installed and your cli works and clone the repository.**
+    ```bash
+    git clone https://github.com/notLeoHirano/recipe-remix.git
+    ```
+
+1. **Create your .env and set up your API key**
 
     ```bash
     #.env
