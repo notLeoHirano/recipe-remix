@@ -6,7 +6,7 @@ This project is a modular recipe adjustment workflow that allows users to input 
 
 ## Features
 
-- Scrapes recipes from URLs.
+- Scrapes recipes from URLs using a library
 - Detects user-specified dietary restrictions or allergens.
 - Suggests ingredient substitutions using a language model (Gemini API).
 - Adjusts recipe steps to incorporate substitutions.
@@ -20,13 +20,14 @@ This project is a modular recipe adjustment workflow that allows users to input 
    Scrapes recipes from a given URL and outputs structured recipe data.
 
 2. **DietaryFilterAgent**  
-   Flags ingredients based on user-specified avoided ingredients or broader dietary restrictions (e.g., non-vegan).
+   Using an LLM prompt, flags ingredients based on user-specified avoided ingredients or broader dietary restrictions (e.g., non-vegan).
 
 3. **SubstitutionAgent**  
-   Suggests up to 3 replacements for each flagged ingredient using an LLM. Stores reasoning and optionally prep instructions.
+   Only runs if the DietaryFilterAgent flags a conflict.
+   Using an LLM prompt, suggests up to 3 replacements for each flagged ingredient using an LLM. Stores reasoning and optionally prep instructions.
 
 4. **StepAdjustmentAgent**  
-   Adjusts recipe steps to integrate substitutions. Can either replace the ingredient name or add a prep step if necessary.
+   Using an LLM prompt, adjusts recipe steps to integrate substitutions. Can either replace the ingredient name or add a prep step if necessary.
 
 ---
 
@@ -71,7 +72,7 @@ python -m pytest -s tests/
     GEMINI_API_KEY="useyoursecretapikeyhere"
     ```
   
-    I used Gemini because it has the most forgiving free tier as of November 2025. Feel free to adapt it to any other API key.
+    I used [Gemini free tier](https://aistudio.google.com/api-keys) because it is the most forgiving as of November 2025. Feel free to adapt it to any other LLM.
 
 2. **Activate your virtual environment**
   
