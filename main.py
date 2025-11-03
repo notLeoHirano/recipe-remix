@@ -19,24 +19,52 @@ class LLMClient:
 llm_client_instance = LLMClient(api_key)
 
 def run_remix_workflow(state: WorkflowState):
-    """Compile and execute the recipe remix workflow."""
+    """Compile and execute the recipe workflow (without remixing)."""
     app = compile_workflow(llm_client_instance)
     final_state_dict = app.invoke(state.model_dump())
     final_state = WorkflowState(**final_state_dict)
 
     print("\nWorkflow Complete:")
-    print("\n## Final Remixed Recipe")
-    if final_state.remixed_recipe:
-        print(json.dumps(final_state.remixed_recipe, indent=4))
-    else:
-        print("No remix output produced.")
 
-    print("\n## Substitution Summary")
+    # Print full recipe with substitutions
+    final_recipe = final_state.remix_input_recipe
+    if final_recipe:
+        print("\n## Final Recipe Ingredients:")
+        for ing in final_recipe.ingredients:
+            print(f"- {ing}")
+
+        print("\n## Recipe Steps:")
+        for i, step in enumerate(final_recipe.steps, 1):
+            print(f"{i}. {step}")
+    else:
+        print("No recipe output produced.")
+        
+    # Substitution summary
     if final_state.substitutions:
-        print(json.dumps([s.model_dump() for s in final_state.substitutions], indent=4))
-    else:
-        print("No substitutions were made.")
+        print("\n## Substitution Summary")
+        
+        # Group substitutions by original ingredient
+        subs_by_original = {}
+        for sub in final_state.substitutions:
+            original = sub.original
+            subs_by_original.setdefault(original, []).append(sub)
 
+        for original, sub_list in subs_by_original.items():
+            print(f"\nOriginal Ingredient: {original}")
+            if sub_list:
+                # Print the top recommendation first
+                top = sub_list[0]
+                print(f"  → Top Recommendation: {top.suggestion}")
+                print(f"    Reasoning: {top.reasoning}")
+
+                if len(sub_list) > 1:
+                    print("  → Other Possible Substitutions:")
+                    for alt in sub_list[1:]:
+                        print(f"    - {alt.suggestion}: {alt.reasoning}")
+    else:
+        print("\nNo substitutions were made.")
+
+    # Reasoning trace
     print("\n## Reasoning Trace Log")
     print(json.dumps(final_state.reasoning_trace, indent=2))
 
