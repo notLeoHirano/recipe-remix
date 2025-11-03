@@ -6,12 +6,13 @@ class Flag(BaseModel):
     ingredient: str = Field(description="The ingredient found with an issue.")
     issue: str = Field(description="The dietary issue (e.g., 'Non-vegan dairy').")
     reasoning: str = Field(description="Why this ingredient is flagged.")
-
+    
 class Substitution(BaseModel):
     """Structured replacement suggestion."""
     original: str
     suggestion: str
     reasoning: str
+    prep: Optional[str] = None
 
 class OriginalRecipe(BaseModel):
     """The clean, structured recipe core."""
