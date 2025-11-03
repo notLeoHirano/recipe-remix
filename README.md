@@ -88,6 +88,12 @@ python -m pytest -s tests/
     source venv/bin/activate
     ```
 
+    After, you can install dependencies
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
 3. **Run Python workflow**
   
     ```bash
